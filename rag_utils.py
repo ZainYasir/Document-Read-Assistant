@@ -32,7 +32,7 @@ def build_faiss_index(embeddings, texts, index_path, text_path):
 
 def load_faiss_index(index_path, text_path):
     if not os.path.exists(index_path) or not os.path.exists(text_path):
-        files = [os.path.join("/kaggle/working/Document-Read-Assistant/documents", f) for f in os.listdir("/kaggle/working/Document-Read-Assistant/documents") if f.endswith(".txt")]
+        files = [os.path.join("documents", f) for f in os.listdir("documents") if f.endswith(".txt")]
         embeddings, texts = embed_documents(files)
         return build_faiss_index(embeddings, texts, index_path, text_path)
 

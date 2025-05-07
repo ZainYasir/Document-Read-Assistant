@@ -22,7 +22,7 @@ def rebuild_faiss_index(docs_dir, index_path, pkl_path):
 
 # Call the function
 rebuild_faiss_index(
-    "/kaggle/working/Document-Read-Assistant/documents",
-    "/kaggle/working/Document-Read-Assistant/index/faiss_index.bin",
-    "/kaggle/working/Document-Read-Assistant/index/docs.pkl"
+    "documents",
+    "index/faiss_index.bin",
+    "index/docs.pkl"
 )
