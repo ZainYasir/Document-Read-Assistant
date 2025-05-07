@@ -1,0 +1,1 @@
+Some of my projects include a Reinforcement Learning-based rover, a personalized LLM chatbot, and a smart room assistant.
