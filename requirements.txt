@@ -1,4 +1,8 @@
-transformers==4.30.0
+# Core libraries
+huggingface_hub==0.13.4
 sentence-transformers==2.2.2
-faiss-cpu
-torch==2.1.0
+transformers==4.35.2
+
+# PyTorch CPU-only
+torch==2.0.1
+faiss-cpu==1.7.4
