@@ -11,7 +11,7 @@ def load_phi2():
     model.eval()
     return model, tokenizer
 
-def generate_response(query, context, model, tokenizer, max_length=256):
+def generate_response(query, context, model, tokenizer, max_length=50):
     prompt = f"Context:\n{context}\n\nQuestion: {query}\nAnswer:"
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
 
