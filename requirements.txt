@@ -1,5 +1,5 @@
 # Core libraries
-huggingface_hub==0.13.4
+huggingface_hub==0.16.4
 sentence-transformers==2.2.2
 transformers==4.35.2
 
