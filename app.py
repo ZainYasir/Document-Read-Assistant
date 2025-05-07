@@ -5,7 +5,10 @@ from model_utils import load_phi2, generate_response
 def main():
     # Step 1: Load or build the FAISS index
     print("[INFO] Loading FAISS index...")
-    index, texts = load_faiss_index("/kaggle/working/Document-Read-Assistant/index/faiss_index.bin", "/kaggle/working/Document-Read-Assistant/index")
+    index, texts = load_faiss_index(
+    "/kaggle/working/Document-Read-Assistant/index/faiss_index.bin",
+    "/kaggle/working/Document-Read-Assistant/index/docs.pkl")
+
 
     # Step 2: Load Phi-2 model
     print("[INFO] Loading Phi-2 model...")
