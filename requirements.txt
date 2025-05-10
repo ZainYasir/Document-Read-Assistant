@@ -1,17 +1,14 @@
-# Keep NumPy <2 for compatibility
-numpy<2
+ # requirements.txt
 
-# PyTorch (CPU/GPU)
-torch==2.1.0
+ numpy<2
+ torch==2.1.0
+ faiss-cpu==1.7.4
 
-# FAISS for vector indexing
-faiss-cpu==1.7.4
+- transformers==4.41.0
++ transformers==4.41.0
 
-# Transformers—must be ≥4.41.0 for sentence-transformers & Phi-2
-transformers==4.41.0
+- sentence-transformers==3.4.1
++ sentence-transformers==3.4.1
 
-# Sentence‑Transformers for embeddings (v3.4.1 works with transformers 4.41+)
-sentence-transformers==3.4.1
-
-# HuggingFace Hub—must be <1.0 for compatibility with transformers 4.x
-huggingface_hub==0.16.4
+-huggingface_hub==0.16.4
++huggingface_hub>=0.23.0,<1.0
