@@ -11,18 +11,23 @@ def load_phi2():
     model.eval()
     return model, tokenizer
 
-def generate_response(query, context, model, tokenizer, max_length=150):
-    prompt = f"Context:\n{context}\n\nQuestion: {query}\nAnswer:"
+def generate_response(query, context, model, tokenizer, max_new_tokens=100):
+    stop_token = ""  
+    prompt = (
+        f"Context:\n{context}\n\n"
+        f"Question: {query}\n"
+        "Answer:"
+        + stop_token
+    )
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-
-    with torch.no_grad():
-        output = model.generate(
-            **inputs,
-            max_new_tokens=max_length,
-            do_sample=True,
-            top_p=0.9,
-            temperature=0.7
-        )
-
-    response = tokenizer.decode(output[0], skip_special_tokens=True)
-    return response.split("Answer:")[-1].strip()
+    output = model.generate(
+        **inputs,
+        max_new_tokens=max_new_tokens,
+        eos_token_id=tokenizer.eos_token_id,
+        pad_token_id=tokenizer.eos_token_id,
+        do_sample=True,
+        top_p=0.9,
+        temperature=0.7,
+    )
+    text = tokenizer.decode(output[0], skip_special_tokens=True)
+    return text.split(stop_token)[0].split("Answer:")[-1].strip()
