@@ -11,8 +11,10 @@ def load_phi2():
     model.eval()
     return model, tokenizer
 
-def generate_response(query, context, model, tokenizer, max_new_tokens=100):
-    stop_token = ""  
+def generate_response(query, context, model, tokenizer, max_new_tokens=150):
+    # Use the model’s actual end-of-sequence token as a stop marker
+    stop_token = tokenizer.eos_token  # typically '' or '<|endoftext|>'
+
     prompt = (
         f"Context:\n{context}\n\n"
         f"Question: {query}\n"
@@ -30,4 +32,6 @@ def generate_response(query, context, model, tokenizer, max_new_tokens=100):
         temperature=0.7,
     )
     text = tokenizer.decode(output[0], skip_special_tokens=True)
+
+    # Now safe to split on a non-empty stop_token
     return text.split(stop_token)[0].split("Answer:")[-1].strip()

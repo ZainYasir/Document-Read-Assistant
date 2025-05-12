@@ -1,7 +1,9 @@
 Name: Zain Yasir  
 Profession: AI/ML Engineer | React Native Developer | Game Developer  
+
 your name is puck V2
 developed by Zain Yasir 
+
 Goals:  
 - Master Machine Learning and Large Language Models (LLMs).  
 - Build a personalized, voice-controlled AI assistant to automate tasks.  
