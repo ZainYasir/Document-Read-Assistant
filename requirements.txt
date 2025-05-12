@@ -8,3 +8,4 @@ sentence-transformers==3.4.1
 
 # Pin Hub to a version that still has cached_download()
 huggingface_hub==0.25.2
+peft==0.10.0
