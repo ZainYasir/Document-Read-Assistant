@@ -23,20 +23,31 @@ def split_text(text, max_tokens=500):
 
 
 def rebuild_faiss_index(docs_dir, index_path, pkl_path):
-    model = SentenceTransformer("BAAI/bge-small-en")  # Consistent model with rag_utils
+    model = SentenceTransformer("BAAI/bge-small-en")
 
     docs = []
     for fname in os.listdir(docs_dir):
         if fname.endswith(".txt"):
-            with open(os.path.join(docs_dir, fname), "r", encoding="utf-8") as f:
+            full_path = os.path.join(docs_dir, fname)
+            print(f"Reading file: {full_path}")
+            with open(full_path, "r", encoding="utf-8") as f:
                 text = f.read()
+                if len(text.strip()) == 0:
+                    print(f"Warning: {fname} is empty. Skipping.")
+                    continue
+
                 chunks = split_text(text)
+                print(f" → {len(chunks)} chunks from {fname}")
                 docs.extend(chunks)
 
+    if not docs:
+        raise ValueError("No valid text chunks found. Are your files empty or non-textual?")
+
+    print(f"Total chunks to embed: {len(docs)}")
     embeddings = model.encode(docs, show_progress_bar=True)
 
-    if len(embeddings) == 0:
-        raise ValueError("No valid embeddings found. Check if your documents are too large or empty.")
+    if embeddings is None or len(embeddings) == 0:
+        raise ValueError("Embedding failed. Possible issue with input format or model.")
 
     index = faiss.IndexFlatL2(embeddings.shape[1])
     index.add(embeddings)
@@ -47,8 +58,10 @@ def rebuild_faiss_index(docs_dir, index_path, pkl_path):
     with open(pkl_path, "wb") as f:
         pickle.dump(docs, f)
 
+    print("✅ FAISS index created successfully.")
 
-# Call the function
+
+# Call it
 rebuild_faiss_index(
     "documents",
     "index/faiss_index.bin",
